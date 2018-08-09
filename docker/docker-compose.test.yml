@@ -6,4 +6,17 @@ services:
       context: ..
       dockerfile: docker/Dockerfile.test
     image: ${IMAGE:-pipdevs/test}
+    depends_on:
+      - rabbitmq
+    environment:
+      - RABBITMQ_ENABLED=true
+      - RABBITMQ_HOST=rabbitmq
+      - RABBITMQ_PORT=5672
+      - RABBITMQ_USER=user
+      - RABBITMQ_PASS=pass123
 
+  rabbitmq:
+    image: bitnami/rabbitmq:latest
+    environment:
+      - RABBITMQ_USERNAME=user
+      - RABBITMQ_PASSWORD=pass123
