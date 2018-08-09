@@ -22,9 +22,14 @@ namespace PipServices.RabbitMQ.Queues
         private IConnection _connection;
         private IModel _model;
         private string _queue;
-        private string _exchange;
-        private bool _persistent;
-        private string _routingKey;
+        private string _exchange = "";
+        private string _exchangeType = "fanout";
+        private string _routingKey = "";
+        private bool _persistent = false;
+        private bool _exclusive = false;
+        private bool _autoCreate = false;
+        private bool _autoDelete = false;
+        private bool _noQueue = false;
         private CancellationTokenSource _cancel = new CancellationTokenSource();
 
         public RabbitMQMessageQueue(string name = null)
@@ -54,6 +59,17 @@ namespace PipServices.RabbitMQ.Queues
             base.Configure(config);
 
             Interval = config.GetAsLongWithDefault("interval", Interval);
+
+            _queue = config.GetAsStringWithDefault("queue", _queue ?? Name);
+            _exchange = config.GetAsStringWithDefault("exchange", _exchange);
+
+            _exchangeType = config.GetAsStringWithDefault("options.exchange_type", _exchangeType);
+            _routingKey = config.GetAsStringWithDefault("options.routing_key", _routingKey);
+            _persistent = config.GetAsBooleanWithDefault("options.persistent", _persistent);
+            _exclusive = config.GetAsBooleanWithDefault("options.exclusive", _exclusive);
+            _autoCreate = config.GetAsBooleanWithDefault("options.auto_create", _autoCreate);            
+            _autoDelete = config.GetAsBooleanWithDefault("options.auto_delete", _autoDelete);            
+            _noQueue = config.GetAsBooleanWithDefault("options.no_queue", _noQueue);            
         }
 
         private void CheckOpened(string correlationId)
@@ -108,10 +124,6 @@ namespace PipServices.RabbitMQ.Queues
             }
 
             _model = _connection.CreateModel();
-            _queue = connection.GetAsStringWithDefault("queue", _queue);
-            _exchange = connection.GetAsStringWithDefault("exchange", "");
-            _persistent = connection.GetAsBoolean("persistent");
-            _routingKey = connection.GetAsStringWithDefault("routing_key", "");
             _cancel = new CancellationTokenSource();
 
             if (string.IsNullOrEmpty(_queue) && string.IsNullOrEmpty(_exchange))
@@ -124,15 +136,15 @@ namespace PipServices.RabbitMQ.Queues
             }
 
             // Automatically create queue, exchange and binding
-            if (connection.GetAsBoolean("auto_create"))
+            if (_autoCreate)
             {
                 if (!string.IsNullOrEmpty(_exchange))
                 {
                     _model.ExchangeDeclare(
                         _exchange,
-                        connection.GetAsStringWithDefault("exchange_type", "fanout"),
-                        connection.GetAsBoolean("persistent"),
-                        connection.GetAsBoolean("auto_delete"),
+                        _exchangeType,
+                        _persistent,
+                        _autoDelete,
                         null
                     );
                 }
@@ -143,7 +155,7 @@ namespace PipServices.RabbitMQ.Queues
                     {
                         _queue = _model.QueueDeclare(
                             "",
-                            connection.GetAsBoolean("persistent"),
+                            _persistent,
                             true,
                             true
                         ).QueueName;
@@ -152,9 +164,9 @@ namespace PipServices.RabbitMQ.Queues
                     {
                         _model.QueueDeclare(
                             _queue,
-                            connection.GetAsBoolean("persistent"),
-                            connection.GetAsBoolean("exclusive"),
-                            connection.GetAsBoolean("auto_delete"),
+                            _persistent,
+                            _exclusive,
+                            _autoDelete,
                             null
                         );
                     }

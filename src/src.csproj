@@ -6,7 +6,7 @@
     <AssemblyName>PipServices.RabbitMQ</AssemblyName>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>3.0.1</Version>
+    <Version>3.0.2</Version>
     <Authors>Sergey Seroukhov</Authors>
     <Copyright>Conceptual Vision Consulting LLC. 2017-2018</Copyright>
     <Description>RabbitMQ components for Pip.Services in .NET</Description>
@@ -20,10 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PipServices.Commons" Version="3.0.2" />
     <PackageReference Include="PipServices.Components" Version="3.0.2" />
     <PackageReference Include="PipServices.Messaging" Version="3.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
+    <PackageReference Include="PipServices.Commons" Version="3.0.3" />
   </ItemGroup>
 
 </Project>

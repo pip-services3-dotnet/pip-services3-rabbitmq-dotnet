@@ -28,12 +28,12 @@ namespace PipServices.RabbitMQ.Queues
             {
                 _queue = new RabbitMQMessageQueue("TestQueue");
                 _queue.Configure(ConfigParams.FromTuples(
+                    "exchange", RABBITMQ_EXCHANGE,
+                    "queue", RABBITMQ_QUEUE,
+                    "options.auto_create", true,
                     "connection.uri", RABBITMQ_URI,
                     "connection.host", RABBITMQ_HOST,
                     "connection.port", RABBITMQ_PORT,
-                    "connection.queue", RABBITMQ_QUEUE,
-                    "connection.auto_create", true,
-                    "connection.exchange", RABBITMQ_EXCHANGE,
                     "credential.username", RABBITMQ_USER,
                     "credential.password", RABBITMQ_PASS
                 ));
