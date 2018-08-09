@@ -137,15 +137,27 @@ namespace PipServices.RabbitMQ.Queues
                     );
                 }
 
-                if (!string.IsNullOrEmpty(_queue))
+                if (!connection.GetAsBoolean("no_queue"))
                 {
-                    _model.QueueDeclare(
-                        _queue,
-                        connection.GetAsBoolean("persistent"),
-                        connection.GetAsBoolean("exclusive"),
-                        connection.GetAsBoolean("auto_delete"),
-                        null
-                    );
+                    if (string.IsNullOrEmpty(_queue))
+                    {
+                        _queue = _model.QueueDeclare(
+                            "",
+                            connection.GetAsBoolean("persistent"),
+                            true,
+                            true
+                        ).QueueName;
+                    }
+                    else
+                    {
+                        _model.QueueDeclare(
+                            _queue,
+                            connection.GetAsBoolean("persistent"),
+                            connection.GetAsBoolean("exclusive"),
+                            connection.GetAsBoolean("auto_delete"),
+                            null
+                        );
+                    }
 
                     if (!string.IsNullOrEmpty(_exchange))
                     {
