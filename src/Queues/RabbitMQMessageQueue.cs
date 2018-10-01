@@ -14,6 +14,47 @@ using RabbitMQ.Client.Events;
 
 namespace PipServices.RabbitMQ.Queues
 {
+    /// <summary>
+    /// Message queue that sends and receives messages via MQTT message broker.
+    /// 
+    /// MQTT is a popular light-weight protocol to communicate IoT devices.
+    /// 
+    /// ### Configuration parameters ###
+    /// 
+    /// topic:                         name of MQTT topic to subscribe
+    /// connection(s):
+    /// discovery_key:               (optional) a key to retrieve the connection from IDiscovery
+    /// host:                        host name or IP address
+    /// port:                        port number
+    /// uri:                         resource URI or connection string with all parameters in it
+    /// credential(s):
+    /// store_key:                   (optional) a key to retrieve the credentials from ICredentialStore
+    /// username:                    user name
+    /// password:                    user password
+    /// 
+    /// ### References ###
+    /// 
+    /// - *:logger:*:*:1.0             (optional) ILogger components to pass log messages
+    /// - *:counters:*:*:1.0           (optional) ICounters components to pass collected measurements
+    /// - *:discovery:*:*:1.0          (optional) IDiscovery services to resolve connections
+    /// - *:credential-store:*:*:1.0   (optional) Credential stores to resolve credentials
+    /// </summary>
+    /// <example>
+    /// <code>
+    /// var queue = new RabbitMQMessageQueue("myqueue");
+    /// queue.configure(ConfigParams.FromTuples(
+    /// "topic", "mytopic",
+    /// "connection.protocol", "mqtt"
+    /// "connection.host", "localhost"
+    /// "connection.port", 1883 ));
+    /// queue.Open("123");
+    /// 
+    /// queue.Send("123", new MessageEnvelop(null, "mymessage", "ABC"));
+    /// queue.Receive("123", 0);
+    /// queue.Complete("123", message);
+    /// </code>
+    /// </example>
+    /// See <see cref="MessageQueue"/>, <see cref="MessagingCapabilities"/>
     public class RabbitMQMessageQueue : MessageQueue
     {
         //private long DefaultVisibilityTimeout = 60000;
@@ -32,6 +73,10 @@ namespace PipServices.RabbitMQ.Queues
         private bool _noQueue = false;
         private CancellationTokenSource _cancel = new CancellationTokenSource();
 
+        /// <summary>
+        /// Creates a new instance of the message queue.
+        /// </summary>
+        /// <param name="name">(optional) a queue name.</param>
         public RabbitMQMessageQueue(string name = null)
         {
             Name = name;
@@ -54,6 +99,10 @@ namespace PipServices.RabbitMQ.Queues
 
         public long Interval { get; set; }
 
+        /// <summary>
+        /// Configures component by passing configuration parameters.
+        /// </summary>
+        /// <param name="config">configuration parameters to be set.</param>
         public override void Configure(ConfigParams config)
         {
             base.Configure(config);
@@ -78,11 +127,21 @@ namespace PipServices.RabbitMQ.Queues
                 throw new InvalidStateException(correlationId, "NOT_OPENED", "The queue is not opened");
         }
 
+        /// <summary>
+        /// Checks if the component is opened.
+        /// </summary>
+        /// <returns>true if the component has been opened and false otherwise.</returns>
         public override bool IsOpen()
         {
             return _model != null && _model.IsOpen;
         }
 
+        /// <summary>
+        /// Opens the component with given connection and credential parameters.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <param name="connection">connection parameters</param>
+        /// <param name="credential">credential parameters</param>
         public async override Task OpenAsync(string correlationId, ConnectionParams connection, CredentialParams credential)
         {
             var connectionFactory = new ConnectionFactory();
@@ -185,6 +244,10 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0); 
         }
 
+        /// <summary>
+        /// Closes component and frees used resources.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
         public override async Task CloseAsync(string correlationId)
         {
             var model = _model;
@@ -235,6 +298,11 @@ namespace PipServices.RabbitMQ.Queues
             return message;
         }
 
+        /// <summary>
+        /// Sends a message into the queue.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <param name="message">a message envelop to be sent.</param>
         public override async Task SendAsync(string correlationId, MessageEnvelope message)
         {
             CheckOpened(correlationId);
@@ -259,6 +327,12 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Peeks a single incoming message from the queue without removing it.
+        /// If there are no messages available in the queue it returns null.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <returns>a message</returns>
         public override async Task<MessageEnvelope> PeekAsync(string correlationId)
         {
             CheckOpened(correlationId);
@@ -275,6 +349,13 @@ namespace PipServices.RabbitMQ.Queues
             return await Task.FromResult<MessageEnvelope>(message);
         }
 
+        /// <summary>
+        /// Peeks multiple incoming messages from the queue without removing them.
+        /// If there are no messages available in the queue it returns an empty list.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <param name="messageCount">a maximum number of messages to peek.</param>
+        /// <returns>a list with messages</returns>
         public override async Task<List<MessageEnvelope>> PeekBatchAsync(string correlationId, int messageCount)
         {
             CheckOpened(correlationId);
@@ -297,6 +378,12 @@ namespace PipServices.RabbitMQ.Queues
             return await Task.FromResult<List<MessageEnvelope>>(messages);
         }
 
+        /// <summary>
+        /// Receives an incoming message and removes it from the queue.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <param name="waitTimeout">a timeout in milliseconds to wait for a message to come.</param>
+        /// <returns>a message</returns>
         public override async Task<MessageEnvelope> ReceiveAsync(string correlationId, long waitTimeout)
         {
             BasicGetResult envelope = null;
@@ -326,6 +413,14 @@ namespace PipServices.RabbitMQ.Queues
             return await Task.FromResult<MessageEnvelope>(message);
         }
 
+        /// <summary>
+        /// Renews a lock on a message that makes it invisible from other receivers in the queue.
+        /// This method is usually used to extend the message processing time.
+        /// 
+        /// Important: This method is not supported by MQTT.
+        /// </summary>
+        /// <param name="message">a message to extend its lock.</param>
+        /// <param name="lockTimeout">a locking timeout in milliseconds.</param>
         public override async Task RenewLockAsync(MessageEnvelope message, long lockTimeout)
         {
             CheckOpened(message.CorrelationId);
@@ -335,6 +430,15 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Returnes message into the queue and makes it available for all subscribers to receive it again.
+        /// This method is usually used to return a message which could not be processed at the moment
+        /// to repeat the attempt.Messages that cause unrecoverable errors shall be removed permanently
+        /// or/and send to dead letter queue.
+        /// 
+        /// Important: This method is not supported by MQTT.
+        /// </summary>
+        /// <param name="message">a message to return.</param>
         public override async Task AbandonAsync(MessageEnvelope message)
         {
             CheckOpened(message.CorrelationId);
@@ -352,6 +456,13 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Permanently removes a message from the queue.
+        /// This method is usually used to remove the message after successful processing.
+        /// 
+        /// Important: This method is not supported by MQTT.
+        /// </summary>
+        /// <param name="message">a message to remove.</param>
         public override async Task CompleteAsync(MessageEnvelope message)
         {
             CheckOpened(message.CorrelationId);
@@ -368,6 +479,13 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Permanently removes a message from the queue and sends it to dead letter queue.
+        /// 
+        /// Important: This method is not supported by MQTT.
+        /// </summary>
+        /// <param name="message">a message to be removed.</param>
+        /// <returns></returns>
         public override async Task MoveToDeadLetterAsync(MessageEnvelope message)
         {
             CheckOpened(message.CorrelationId);
@@ -377,6 +495,12 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Listens for incoming messages and blocks the current thread until queue is closed.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <param name="callback"></param>
+        /// <returns></returns>
         public override async Task ListenAsync(string correlationId, Func<MessageEnvelope, IMessageQueue, Task> callback)
         {
             CheckOpened(correlationId);
@@ -416,11 +540,21 @@ namespace PipServices.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
+        /// <summary>
+        /// Ends listening for incoming messages.
+        /// When this method is call listen unblocks the thread and execution continues.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
         public override void EndListen(string correlationId)
         {
             _cancel.Cancel();
         }
 
+        /// <summary>
+        /// Clears component state.
+        /// </summary>
+        /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
+        /// <returns></returns>
         public override async Task ClearAsync(string correlationId)
         {
             CheckOpened(correlationId);
