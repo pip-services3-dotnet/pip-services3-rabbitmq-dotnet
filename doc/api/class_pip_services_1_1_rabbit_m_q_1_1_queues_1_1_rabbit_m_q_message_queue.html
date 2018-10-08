@@ -218,16 +218,28 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 <div class="textblock"><p>Message queue that sends and receives messages via MQTT message broker. </p>
 <p>MQTT is a popular light-weight protocol to communicate IoT devices.</p>
 <h3>Configuration parameters</h3>
-<p>topic: name of MQTT topic to subscribe connection(s): discovery_key: (optional) a key to retrieve the connection from IDiscovery host: host name or IP address port: port number uri: resource URI or connection string with all parameters in it credential(s): store_key: (optional) a key to retrieve the credentials from ICredentialStore username: user name password: user password</p>
+<ul>
+<li>topic: name of MQTT topic to subscribe</li>
+</ul>
+<p>connection(s):</p><ul>
+<li>discovery_key: (optional) a key to retrieve the connection from <a href="https://rawgit.com/pip-services-dotnet/pip-services-components-dotnet/master/doc/api/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a></li>
+<li>host: host name or IP address</li>
+<li>port: port number</li>
+<li>uri: resource URI or connection string with all parameters in it</li>
+</ul>
+<p>credential(s):</p><ul>
+<li>store_key: (optional) a key to retrieve the credentials from <a href="https://rawgit.com/pip-services-dotnet/pip-services-components-dotnet/master/doc/api/interface_pip_services_1_1_components_1_1_auth_1_1_i_credential_store.html">ICredentialStore</a></li>
+<li>username: user name</li>
+<li>password: user password</li>
+</ul>
 <h3>References</h3>
 <ul>
-<li>*:logger:*:*:1.0 (optional) ILogger components to pass log messages</li>
-<li>*:counters:*:*:1.0 (optional) ICounters components to pass collected measurements</li>
-<li>*:discovery:*:*:1.0 (optional) IDiscovery services to resolve connections</li>
+<li>*:logger:*:*:1.0 (optional) <a href="https://rawgit.com/pip-services-dotnet/pip-services-components-dotnet/master/doc/api/interface_pip_services_1_1_components_1_1_log_1_1_i_logger.html">ILogger</a> components to pass log messages</li>
+<li>*:counters:*:*:1.0 (optional) <a href="https://rawgit.com/pip-services-dotnet/pip-services-components-dotnet/master/doc/api/interface_pip_services_1_1_components_1_1_count_1_1_i_counters.html">ICounters</a> components to pass collected measurements</li>
+<li>*:discovery:*:*:1.0 (optional) <a href="https://rawgit.com/pip-services-dotnet/pip-services-components-dotnet/master/doc/api/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a> services to resolve connections</li>
 <li>*:credential-store:*:*:1.0 (optional) Credential stores to resolve credentials </li>
 </ul>
-<div class="fragment"><div class="line">var queue = <span class="keyword">new</span> <a class="code" href="class_pip_services_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a234d7a5d6e327cf932379aa1c8b4c075">RabbitMQMessageQueue</a>(<span class="stringliteral">&quot;myqueue&quot;</span>);</div><div class="line">queue.configure(ConfigParams.FromTuples(</div><div class="line"><span class="stringliteral">&quot;topic&quot;</span>, <span class="stringliteral">&quot;mytopic&quot;</span>,</div><div class="line"><span class="stringliteral">&quot;connection.protocol&quot;</span>, <span class="stringliteral">&quot;mqtt&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.host&quot;</span>, <span class="stringliteral">&quot;localhost&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.port&quot;</span>, 1883 ));</div><div class="line">queue.Open(<span class="stringliteral">&quot;123&quot;</span>);</div><div class="line"></div><div class="line">queue.Send(<span class="stringliteral">&quot;123&quot;</span>, <span class="keyword">new</span> MessageEnvelop(null, <span class="stringliteral">&quot;mymessage&quot;</span>, <span class="stringliteral">&quot;ABC&quot;</span>));</div><div class="line">queue.Receive(<span class="stringliteral">&quot;123&quot;</span>, 0);</div><div class="line">queue.Complete(<span class="stringliteral">&quot;123&quot;</span>, message);</div></div><!-- fragment --> <p>See MessageQueue, MessagingCapabilities </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="fragment"><div class="line">var queue = <span class="keyword">new</span> <a class="code" href="class_pip_services_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a234d7a5d6e327cf932379aa1c8b4c075">RabbitMQMessageQueue</a>(<span class="stringliteral">&quot;myqueue&quot;</span>);</div><div class="line">queue.configure(ConfigParams.FromTuples(</div><div class="line"><span class="stringliteral">&quot;topic&quot;</span>, <span class="stringliteral">&quot;mytopic&quot;</span>,</div><div class="line"><span class="stringliteral">&quot;connection.protocol&quot;</span>, <span class="stringliteral">&quot;mqtt&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.host&quot;</span>, <span class="stringliteral">&quot;localhost&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.port&quot;</span>, 1883 ));</div><div class="line">queue.Open(<span class="stringliteral">&quot;123&quot;</span>);</div><div class="line"></div><div class="line">queue.Send(<span class="stringliteral">&quot;123&quot;</span>, <span class="keyword">new</span> MessageEnvelop(null, <span class="stringliteral">&quot;mymessage&quot;</span>, <span class="stringliteral">&quot;ABC&quot;</span>));</div><div class="line">queue.Receive(<span class="stringliteral">&quot;123&quot;</span>, 0);</div><div class="line">queue.Complete(<span class="stringliteral">&quot;123&quot;</span>, message);</div></div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a234d7a5d6e327cf932379aa1c8b4c075"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a234d7a5d6e327cf932379aa1c8b4c075">&#9670;&nbsp;</a></span>RabbitMQMessageQueue()</h2>
 
