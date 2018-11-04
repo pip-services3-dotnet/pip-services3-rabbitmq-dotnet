@@ -22,7 +22,7 @@ To work with GitHub code repository you need to install Git from: https://git-sc
 
 After your environment is ready you can check out source code from the Github repository:
 ```bash
-git clone git@github.com:pip-services-dotnet/pip-services-rabbitmq-dotnet.git
+git clone git@github.com:pip-services3-dotnet/pip-services3-rabbitmq-dotnet.git
 ```
 
 ## <a name="build"></a> Building
@@ -68,13 +68,13 @@ Update release notes in CHANGELOG. Update version number and release details in 
 After that compile and test the project. Then create a nuget package:
 
 ```bash
-nuget pack pip-services-rabbitmq-dotnet.nuspec
+nuget pack pip-services3-rabbitmq-dotnet.nuspec
 ```
 
 Publish the package on nuget global repository
 
 ```bash
-nuget push PipServices.RabbitMQ.<version>.nuspec -Source https://www.nuget.org/api/v2/package
+nuget push PipServices3.RabbitMQ.<version>.nuspec -Source https://www.nuget.org/api/v2/package
 ```
 
 Or run command to pack and push:

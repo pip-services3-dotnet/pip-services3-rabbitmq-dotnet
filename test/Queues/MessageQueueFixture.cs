@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
-using PipServices.Messaging.Queues;
+using PipServices3.Messaging.Queues;
 
-namespace PipServices.RabbitMQ.Queues
+namespace PipServices3.RabbitMQ.Queues
 {
     public class MessageQueueFixture
     {

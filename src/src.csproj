@@ -2,28 +2,28 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>PipServices.RabbitMQ</RootNamespace>
-    <AssemblyName>PipServices.RabbitMQ</AssemblyName>
+    <RootNamespace>PipServices3.RabbitMQ</RootNamespace>
+    <AssemblyName>PipServices3.RabbitMQ</AssemblyName>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>3.0.2</Version>
+    <Version>3.0.3</Version>
     <Authors>Sergey Seroukhov</Authors>
     <Copyright>Conceptual Vision Consulting LLC. 2017-2018</Copyright>
     <Description>RabbitMQ components for Pip.Services in .NET</Description>
     <Company>Conceptual Vision Consulting LLC.</Company>
-    <Product>PipServices.RabbitMQ</Product>
+    <Product>PipServices3.RabbitMQ</Product>
     <PackageLicenseUrl>http://opensource.org/licenses/MIT</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/pip-services-dotnet/pip-services-rabbitmq-dotnet</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/pip-services3-dotnet/pip-services3-rabbitmq-dotnet</PackageProjectUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/pip-services/pip-services/master/design/Icon.png</PackageIconUrl>
-    <PackageTags>pip-services microservices framework</PackageTags>
+    <PackageTags>PipServices V3 microservices toolkit</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PipServices.Components" Version="3.0.2" />
-    <PackageReference Include="PipServices.Messaging" Version="3.0.1" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
-    <PackageReference Include="PipServices.Commons" Version="3.0.3" />
+    <PackageReference Include="PipServices3.Commons" Version="3.0.6" />
+    <PackageReference Include="PipServices3.Components" Version="3.0.4" />
+    <PackageReference Include="PipServices3.Messaging" Version="3.0.2" />
   </ItemGroup>
 
 </Project>

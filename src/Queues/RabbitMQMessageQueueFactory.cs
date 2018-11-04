@@ -1,13 +1,13 @@
-﻿using PipServices.Components.Build;
-using PipServices.Commons.Config;
-using PipServices.Commons.Refer;
+﻿using PipServices3.Components.Build;
+using PipServices3.Commons.Config;
+using PipServices3.Commons.Refer;
 
-namespace PipServices.RabbitMQ.Queues
+namespace PipServices3.RabbitMQ.Queues
 {
     public class RabbitMQMessageQueueFactory : Factory, IConfigurable
     {
-        public static readonly Descriptor Descriptor = new Descriptor("pip-services-rabbitmq", "factory", "message-queue", "rabbitmq", "1.0");
-        public static readonly Descriptor MemoryQueueDescriptor = new Descriptor("pip-services-rabbitmq", "message-queue", "rabbitmq", "*", "*");
+        public static readonly Descriptor Descriptor = new Descriptor("pip-services3-rabbitmq", "factory", "message-queue", "rabbitmq", "1.0");
+        public static readonly Descriptor MemoryQueueDescriptor = new Descriptor("pip-services3-rabbitmq", "message-queue", "rabbitmq", "*", "*");
 
         private ConfigParams _config;
 

@@ -4,8 +4,8 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
 
     <IsPackable>false</IsPackable>
-    <RootNamespace>PipServices.RabbitMQ</RootNamespace>
-    <AssemblyName>PipServices.RabbitMQ.Test</AssemblyName>
+    <RootNamespace>PipServices3.RabbitMQ</RootNamespace>
+    <AssemblyName>PipServices3.RabbitMQ.Test</AssemblyName>
     <ApplicationIcon />
     <OutputType>Library</OutputType>
     <StartupObject />
