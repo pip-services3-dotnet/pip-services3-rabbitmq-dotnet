@@ -6,7 +6,7 @@
     <AssemblyName>PipServices3.RabbitMQ</AssemblyName>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>3.0.3</Version>
+    <Version>3.0.4</Version>
     <Authors>Sergey Seroukhov</Authors>
     <Copyright>Conceptual Vision Consulting LLC. 2017-2018</Copyright>
     <Description>RabbitMQ components for Pip.Services in .NET</Description>
