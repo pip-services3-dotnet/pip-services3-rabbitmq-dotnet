@@ -291,7 +291,7 @@ namespace PipServices3.RabbitMQ.Queues
                 MessageId = envelope.BasicProperties.MessageId,
                 MessageType = envelope.BasicProperties.Type,
                 CorrelationId = envelope.BasicProperties.CorrelationId,
-                Message = Encoding.UTF8.GetString(envelope.Body),
+                Message = Encoding.UTF8.GetString(envelope.Body.Span),
                 SentTime = DateTime.UtcNow,
                 Reference = envelope
             };

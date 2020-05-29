@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RootNamespace>PipServices3.RabbitMQ</RootNamespace>
     <AssemblyName>PipServices3.RabbitMQ</AssemblyName>
     <ApplicationIcon />
     <Win32Resource />
-    <Version>3.0.4</Version>
+    <Version>3.1.0</Version>
     <Authors>Sergey Seroukhov</Authors>
-    <Copyright>Conceptual Vision Consulting LLC. 2017-2018</Copyright>
+    <Copyright>Conceptual Vision Consulting LLC. 2017-2020</Copyright>
     <Description>RabbitMQ components for Pip.Services in .NET</Description>
     <Company>Conceptual Vision Consulting LLC.</Company>
     <Product>PipServices3.RabbitMQ</Product>
@@ -20,10 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
-    <PackageReference Include="PipServices3.Commons" Version="3.0.6" />
-    <PackageReference Include="PipServices3.Components" Version="3.0.4" />
-    <PackageReference Include="PipServices3.Messaging" Version="3.0.2" />
+    <PackageReference Include="RabbitMQ.Client" Version="6.0.0" />
+    <PackageReference Include="PipServices3.Commons" Version="3.1.0" />
+    <PackageReference Include="PipServices3.Components" Version="3.1.0" />
+    <PackageReference Include="PipServices3.Messaging" Version="3.1.0" />
   </ItemGroup>
 
 </Project>
