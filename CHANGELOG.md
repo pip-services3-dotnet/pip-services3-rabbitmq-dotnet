@@ -1,5 +1,10 @@
 # RabbitMQ specific components for Pip.Services in .NET Changelog
 
+## <a name="3.1.1"></a> 3.1.1 (2020-06-29)
+
+### Features
+* Implemented support backward compatibility
+
 ## <a name="3.1.0"></a> 3.1.0 (2020-05-26)
 
 ### Breaking Changes
