@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['rabbitmqmessagequeue',['RabbitMQMessageQueue',['../class_pip_services_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a234d7a5d6e327cf932379aa1c8b4c075',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]],
-  ['receiveasync',['ReceiveAsync',['../class_pip_services_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a0e5e534ba0d111fe3da45173976f1df1',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]],
-  ['renewlockasync',['RenewLockAsync',['../class_pip_services_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a23b6956bb1ce82057bf882d9c3808d67',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]]
+  ['rabbitmqmessagequeue',['RabbitMQMessageQueue',['../class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a887cdd34e77e5c35dcbe02fb0e48c5cb',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]],
+  ['receiveasync',['ReceiveAsync',['../class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a2e1478adcbe7e506ff7c09c5ebd58226',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]],
+  ['renewlockasync',['RenewLockAsync',['../class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a9c528e29d14139752f6982d0820b7d6c',1,'PipServices3::RabbitMQ::Queues::RabbitMQMessageQueue']]]
 ];
