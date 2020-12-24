@@ -19,6 +19,8 @@ namespace PipServices3.RabbitMQ.Queues
             var envelope1 = new MessageEnvelope("123", "Test", "Test message");
             await _queue.SendAsync(null, envelope1);
 
+            await Task.Delay(1000);
+
             var count = _queue.MessageCount;
             Assert.True(count > 0);
 
@@ -131,7 +133,7 @@ namespace PipServices3.RabbitMQ.Queues
             });
 
             await _queue.SendAsync(null, envelope1);
-            await Task.Delay(100);
+            await Task.Delay(1000);
 
             Assert.NotNull(envelope2);
             Assert.Equal(envelope1.MessageType, envelope2.MessageType);
