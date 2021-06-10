@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -141,10 +142,16 @@ namespace PipServices3.RabbitMQ.Queues
         /// Opens the component with given connection and credential parameters.
         /// </summary>
         /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
-        /// <param name="connection">connection parameters</param>
+        /// <param name="connections">connection parameters</param>
         /// <param name="credential">credential parameters</param>
-        public async override Task OpenAsync(string correlationId, ConnectionParams connection, CredentialParams credential)
+        public override async Task OpenAsync(string correlationId, List<ConnectionParams> connections, CredentialParams credential)
         {
+            var connection = connections?.FirstOrDefault();
+            if (connection == null)
+            {
+                throw new ArgumentNullException(nameof(connections));
+            }
+
             var connectionFactory = new ConnectionFactory();
 
             if (!string.IsNullOrEmpty(connection.Uri))
@@ -269,17 +276,11 @@ namespace PipServices3.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
-        public override long? MessageCount
+        public override async Task<long> ReadMessageCountAsync()
         {
-            get
-            {
                 CheckOpened(null);
 
-                if (string.IsNullOrEmpty(_queue))
-                    return 0;
-
-                return _model.MessageCount(_queue);
-            }
+                return string.IsNullOrEmpty(_queue) ? 0 : _model.MessageCount(_queue);
         }
 
         private MessageEnvelope ToMessage(BasicGetResult envelope)
@@ -291,7 +292,7 @@ namespace PipServices3.RabbitMQ.Queues
                 MessageId = envelope.BasicProperties.MessageId,
                 MessageType = envelope.BasicProperties.Type,
                 CorrelationId = envelope.BasicProperties.CorrelationId,
-                Message = Encoding.UTF8.GetString(envelope.Body.Span.ToArray()),
+                Message = envelope.Body.Span.ToArray(),
                 SentTime = DateTime.UtcNow,
                 Reference = envelope
             };
@@ -318,7 +319,7 @@ namespace PipServices3.RabbitMQ.Queues
             if (!string.IsNullOrEmpty(message.MessageType))
                 properties.Type = message.MessageType;
 
-            var messageBuffer = Encoding.UTF8.GetBytes(message.Message);
+            var messageBuffer = message.Message;
 
             _model.BasicPublish(_exchange, _routingKey, properties, messageBuffer);
 
@@ -500,9 +501,9 @@ namespace PipServices3.RabbitMQ.Queues
         /// Listens for incoming messages and blocks the current thread until queue is closed.
         /// </summary>
         /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
-        /// <param name="callback"></param>
+        /// <param name="receiver"></param>
         /// <returns></returns>
-        public override async Task ListenAsync(string correlationId, Func<MessageEnvelope, IMessageQueue, Task> callback)
+        public override async Task ListenAsync(string correlationId, IMessageReceiver receiver)
         {
             CheckOpened(correlationId);
             _logger.Debug(correlationId, "Started listening messages at {0}", this);
@@ -523,7 +524,7 @@ namespace PipServices3.RabbitMQ.Queues
 
                     try
                     {
-                        await callback(message, this);
+                        await receiver.ReceiveMessageAsync(message, this);
                     }
                     catch (Exception ex)
                     {

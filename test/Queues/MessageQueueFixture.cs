@@ -21,7 +21,7 @@ namespace PipServices3.RabbitMQ.Queues
 
             await Task.Delay(1000);
 
-            var count = _queue.MessageCount;
+            var count = await _queue.ReadMessageCountAsync();
             Assert.True(count > 0);
 
             var envelope2 = await _queue.ReceiveAsync(null, 10000);
@@ -117,9 +117,8 @@ namespace PipServices3.RabbitMQ.Queues
             var envelope1 = new MessageEnvelope("123", "Test", "Test message");
             await _queue.SendAsync(null, envelope1);
             await Task.Delay(500);
-            var count = _queue.MessageCount;
-            Assert.NotNull(count);
-            Assert.True(count.Value >= 1);
+            var count = await _queue.ReadMessageCountAsync();
+            Assert.True(count >= 1);
         }
 
         public async Task TestOnMessageAsync()
