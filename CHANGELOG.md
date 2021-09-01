@@ -1,5 +1,10 @@
 # <img src="https://uploads-ssl.webflow.com/5ea5d3315186cf5ec60c3ee4/5edf1c94ce4c859f2b188094_logo.svg" alt="Pip.Services Logo" width="200"> <br/> RabbitMQ specific components for .NET Changelog
 
+## <a name="3.3.0"></a> 3.3.0 (2021-09-01)
+
+### Breaking Changes
+* Migrate to .NET Core 5.0
+
 ## <a name="3.2.0-3.2.1"></a> 3.2.0-3.2.1 (2021-06-11) 
 
 ### Features
