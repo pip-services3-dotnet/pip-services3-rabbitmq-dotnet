@@ -22,8 +22,10 @@ namespace PipServices3.RabbitMQ.Queues
     /// 
     /// ### Configuration parameters ###
     /// 
-    /// - topic:                         name of MQTT topic to subscribe
-    /// 
+    /// - queue:                        name of RabbitMQ queue to subscribe
+    /// - intervatl:                    wait for check message interval
+    /// - exchange:                     RabbitMQ exchange name
+    ///
     /// connection(s):
     /// - discovery_key:               (optional) a key to retrieve the connection from <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a>
     /// - host:                        host name or IP address
@@ -35,6 +37,15 @@ namespace PipServices3.RabbitMQ.Queues
     /// - username:                    user name
     /// - password:                    user password
     /// 
+    /// options(s):
+    /// - exchange_type:                (optional) RabbitMQ exchange type (default: fanout)
+    /// - routing_key:                  (optional) RabbitMQ routing key
+    /// - persistent:                   (optional) is persistent messages (default: false)
+    /// - exclusive:                    (optional) is exclusive queue (default: false)
+    /// - auto_create:                  (optional) autocreation queue (default: false)
+    /// - auto_delete:                  (optional) The queue is automatically deleted when the last consumer unsubscribes (default: false)
+    /// - no_queue:                     (optional) autogenerate queue name (default: false)
+    ///
     /// ### References ###
     /// 
     /// - *:logger:*:*:1.0             (optional) <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_log_1_1_i_logger.html">ILogger</a> components to pass log messages
@@ -46,7 +57,7 @@ namespace PipServices3.RabbitMQ.Queues
     /// <code>
     /// var queue = new RabbitMQMessageQueue("myqueue");
     /// queue.configure(ConfigParams.FromTuples(
-    /// "topic", "mytopic",
+    /// "queue", "mytopic",
     /// "connection.protocol", "mqtt"
     /// "connection.host", "localhost"
     /// "connection.port", 1883 ));

@@ -101,12 +101,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a20a7e924624979a21735542399d81de2"><td class="memItemLeft" align="right" valign="top">override bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a20a7e924624979a21735542399d81de2">IsOpen</a> ()</td></tr>
 <tr class="memdesc:a20a7e924624979a21735542399d81de2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if the component is opened.  <a href="#a20a7e924624979a21735542399d81de2">More...</a><br /></td></tr>
 <tr class="separator:a20a7e924624979a21735542399d81de2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac04419fa1397ac40bfe21b82ed503ad3"><td class="memItemLeft" align="right" valign="top">async override Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#ac04419fa1397ac40bfe21b82ed503ad3">OpenAsync</a> (string correlationId, ConnectionParams connection, CredentialParams credential)</td></tr>
-<tr class="memdesc:ac04419fa1397ac40bfe21b82ed503ad3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the component with given connection and credential parameters.  <a href="#ac04419fa1397ac40bfe21b82ed503ad3">More...</a><br /></td></tr>
-<tr class="separator:ac04419fa1397ac40bfe21b82ed503ad3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae44dc2157dc253fc77feba884f2407f1"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#ae44dc2157dc253fc77feba884f2407f1">OpenAsync</a> (string correlationId, List&lt; ConnectionParams &gt; connections, CredentialParams credential)</td></tr>
+<tr class="memdesc:ae44dc2157dc253fc77feba884f2407f1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Opens the component with given connection and credential parameters.  <a href="#ae44dc2157dc253fc77feba884f2407f1">More...</a><br /></td></tr>
+<tr class="separator:ae44dc2157dc253fc77feba884f2407f1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a46d12e054b364efc72dbb38bd2949ed1"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a46d12e054b364efc72dbb38bd2949ed1">CloseAsync</a> (string correlationId)</td></tr>
 <tr class="memdesc:a46d12e054b364efc72dbb38bd2949ed1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Closes component and frees used resources.  <a href="#a46d12e054b364efc72dbb38bd2949ed1">More...</a><br /></td></tr>
 <tr class="separator:a46d12e054b364efc72dbb38bd2949ed1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b15bc20882038c24fc00df653f9366f"><td class="memItemLeft" align="right" valign="top"><a id="a9b15bc20882038c24fc00df653f9366f"></a>
+override async Task&lt; long &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>ReadMessageCountAsync</b> ()</td></tr>
+<tr class="separator:a9b15bc20882038c24fc00df653f9366f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13bb8278e62602e1dbd0cd666b472e02"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a13bb8278e62602e1dbd0cd666b472e02">SendAsync</a> (string correlationId, MessageEnvelope message)</td></tr>
 <tr class="memdesc:a13bb8278e62602e1dbd0cd666b472e02"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sends a message into the queue.  <a href="#a13bb8278e62602e1dbd0cd666b472e02">More...</a><br /></td></tr>
 <tr class="separator:a13bb8278e62602e1dbd0cd666b472e02"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,9 +134,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0a5a3c210753ea951fff5d100e5db9e9"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a0a5a3c210753ea951fff5d100e5db9e9">MoveToDeadLetterAsync</a> (MessageEnvelope message)</td></tr>
 <tr class="memdesc:a0a5a3c210753ea951fff5d100e5db9e9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Permanently removes a message from the queue and sends it to dead letter queue.  <a href="#a0a5a3c210753ea951fff5d100e5db9e9">More...</a><br /></td></tr>
 <tr class="separator:a0a5a3c210753ea951fff5d100e5db9e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ec813cde4d058114dd51ca761ad68be"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a6ec813cde4d058114dd51ca761ad68be">ListenAsync</a> (string correlationId, Func&lt; MessageEnvelope, IMessageQueue, Task &gt; callback)</td></tr>
-<tr class="memdesc:a6ec813cde4d058114dd51ca761ad68be"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listens for incoming messages and blocks the current thread until queue is closed.  <a href="#a6ec813cde4d058114dd51ca761ad68be">More...</a><br /></td></tr>
-<tr class="separator:a6ec813cde4d058114dd51ca761ad68be"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a28207478eb52213fef8ac8dc678b928b"><td class="memItemLeft" align="right" valign="top">override async Task&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a28207478eb52213fef8ac8dc678b928b">ListenAsync</a> (string correlationId, IMessageReceiver receiver)</td></tr>
+<tr class="memdesc:a28207478eb52213fef8ac8dc678b928b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Listens for incoming messages and blocks the current thread until queue is closed.  <a href="#a28207478eb52213fef8ac8dc678b928b">More...</a><br /></td></tr>
+<tr class="separator:a28207478eb52213fef8ac8dc678b928b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6a23a58676e796b4aeae3a4822a60a19"><td class="memItemLeft" align="right" valign="top">override void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a6a23a58676e796b4aeae3a4822a60a19">EndListen</a> (string correlationId)</td></tr>
 <tr class="memdesc:a6a23a58676e796b4aeae3a4822a60a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Ends listening for incoming messages. When this method is call listen unblocks the thread and execution continues.  <a href="#a6a23a58676e796b4aeae3a4822a60a19">More...</a><br /></td></tr>
 <tr class="separator:a6a23a58676e796b4aeae3a4822a60a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -146,9 +149,6 @@ Properties</h2></td></tr>
 <tr class="memitem:ab87f13613c3858e24dfb4cb63c215394"><td class="memItemLeft" align="right" valign="top"><a id="ab87f13613c3858e24dfb4cb63c215394"></a>
 long&#160;</td><td class="memItemRight" valign="bottom"><b>Interval</b><code> [get, set]</code></td></tr>
 <tr class="separator:ab87f13613c3858e24dfb4cb63c215394"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af877c15f208a9c50df11aed256de7cdd"><td class="memItemLeft" align="right" valign="top"><a id="af877c15f208a9c50df11aed256de7cdd"></a>
-override long&#160;</td><td class="memItemRight" valign="bottom"><b>MessageCount</b><code> [get]</code></td></tr>
-<tr class="separator:af877c15f208a9c50df11aed256de7cdd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
@@ -205,7 +205,9 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 <div class="textblock"><p>Message queue that sends and receives messages via MQTT message broker. </p>
 <p>MQTT is a popular light-weight protocol to communicate IoT devices.</p>
 <ul>
-<li>topic: name of MQTT topic to subscribe</li>
+<li>queue: name of <a class="el" href="namespace_pip_services3_1_1_rabbit_m_q.html">RabbitMQ</a> queue to subscribe</li>
+<li>intervatl: wait for check message interval</li>
+<li>exchange: <a class="el" href="namespace_pip_services3_1_1_rabbit_m_q.html">RabbitMQ</a> exchange name</li>
 </ul>
 <p>connection(s):</p><ul>
 <li>discovery_key: (optional) a key to retrieve the connection from <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a></li>
@@ -218,13 +220,22 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 <li>username: user name</li>
 <li>password: user password</li>
 </ul>
+<p>options(s):</p><ul>
+<li>exchange_type: (optional) <a class="el" href="namespace_pip_services3_1_1_rabbit_m_q.html">RabbitMQ</a> exchange type (default: fanout)</li>
+<li>routing_key: (optional) <a class="el" href="namespace_pip_services3_1_1_rabbit_m_q.html">RabbitMQ</a> routing key</li>
+<li>persistent: (optional) is persistent messages (default: false)</li>
+<li>exclusive: (optional) is exclusive queue (default: false)</li>
+<li>auto_create: (optional) autocreation queue (default: false)</li>
+<li>auto_delete: (optional) The queue is automatically deleted when the last consumer unsubscribes (default: false)</li>
+<li>no_queue: (optional) autogenerate queue name (default: false)</li>
+</ul>
 <ul>
 <li>*:logger:*:*:1.0 (optional) <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_log_1_1_i_logger.html">ILogger</a> components to pass log messages</li>
 <li>*:counters:*:*:1.0 (optional) <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_count_1_1_i_counters.html">ICounters</a> components to pass collected measurements</li>
 <li>*:discovery:*:*:1.0 (optional) <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a> services to resolve connections</li>
 <li>*:credential-store:*:*:1.0 (optional) Credential stores to resolve credentials </li>
 </ul>
-<div class="fragment"><div class="line">var queue = <span class="keyword">new</span> <a class="code" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a887cdd34e77e5c35dcbe02fb0e48c5cb">RabbitMQMessageQueue</a>(<span class="stringliteral">&quot;myqueue&quot;</span>);</div><div class="line">queue.configure(ConfigParams.FromTuples(</div><div class="line"><span class="stringliteral">&quot;topic&quot;</span>, <span class="stringliteral">&quot;mytopic&quot;</span>,</div><div class="line"><span class="stringliteral">&quot;connection.protocol&quot;</span>, <span class="stringliteral">&quot;mqtt&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.host&quot;</span>, <span class="stringliteral">&quot;localhost&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.port&quot;</span>, 1883 ));</div><div class="line">queue.Open(<span class="stringliteral">&quot;123&quot;</span>);</div><div class="line"></div><div class="line">queue.Send(<span class="stringliteral">&quot;123&quot;</span>, <span class="keyword">new</span> MessageEnvelop(null, <span class="stringliteral">&quot;mymessage&quot;</span>, <span class="stringliteral">&quot;ABC&quot;</span>));</div><div class="line">queue.Receive(<span class="stringliteral">&quot;123&quot;</span>, 0);</div><div class="line">queue.Complete(<span class="stringliteral">&quot;123&quot;</span>, message);</div></div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<div class="fragment"><div class="line">var queue = <span class="keyword">new</span> <a class="code" href="class_pip_services3_1_1_rabbit_m_q_1_1_queues_1_1_rabbit_m_q_message_queue.html#a887cdd34e77e5c35dcbe02fb0e48c5cb">RabbitMQMessageQueue</a>(<span class="stringliteral">&quot;myqueue&quot;</span>);</div><div class="line">queue.configure(ConfigParams.FromTuples(</div><div class="line"><span class="stringliteral">&quot;queue&quot;</span>, <span class="stringliteral">&quot;mytopic&quot;</span>,</div><div class="line"><span class="stringliteral">&quot;connection.protocol&quot;</span>, <span class="stringliteral">&quot;mqtt&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.host&quot;</span>, <span class="stringliteral">&quot;localhost&quot;</span></div><div class="line"><span class="stringliteral">&quot;connection.port&quot;</span>, 1883 ));</div><div class="line">queue.Open(<span class="stringliteral">&quot;123&quot;</span>);</div><div class="line"></div><div class="line">queue.Send(<span class="stringliteral">&quot;123&quot;</span>, <span class="keyword">new</span> MessageEnvelop(null, <span class="stringliteral">&quot;mymessage&quot;</span>, <span class="stringliteral">&quot;ABC&quot;</span>));</div><div class="line">queue.Receive(<span class="stringliteral">&quot;123&quot;</span>, 0);</div><div class="line">queue.Complete(<span class="stringliteral">&quot;123&quot;</span>, message);</div></div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a887cdd34e77e5c35dcbe02fb0e48c5cb"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a887cdd34e77e5c35dcbe02fb0e48c5cb">&#9670;&nbsp;</a></span>RabbitMQMessageQueue()</h2>
 
@@ -431,8 +442,8 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 
 </div>
 </div>
-<a id="a6ec813cde4d058114dd51ca761ad68be"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ec813cde4d058114dd51ca761ad68be">&#9670;&nbsp;</a></span>ListenAsync()</h2>
+<a id="a28207478eb52213fef8ac8dc678b928b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a28207478eb52213fef8ac8dc678b928b">&#9670;&nbsp;</a></span>ListenAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -446,8 +457,8 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">Func&lt; MessageEnvelope, IMessageQueue, Task &gt;&#160;</td>
-          <td class="paramname"><em>callback</em>&#160;</td>
+          <td class="paramtype">IMessageReceiver&#160;</td>
+          <td class="paramname"><em>receiver</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -461,7 +472,7 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">correlationId</td><td>(optional) transaction id to trace execution through call chain.</td></tr>
-    <tr><td class="paramname">callback</td><td></td></tr>
+    <tr><td class="paramname">receiver</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -497,14 +508,14 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 
 </div>
 </div>
-<a id="ac04419fa1397ac40bfe21b82ed503ad3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac04419fa1397ac40bfe21b82ed503ad3">&#9670;&nbsp;</a></span>OpenAsync()</h2>
+<a id="ae44dc2157dc253fc77feba884f2407f1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae44dc2157dc253fc77feba884f2407f1">&#9670;&nbsp;</a></span>OpenAsync()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">async override Task PipServices3.RabbitMQ.Queues.RabbitMQMessageQueue.OpenAsync </td>
+          <td class="memname">override async Task PipServices3.RabbitMQ.Queues.RabbitMQMessageQueue.OpenAsync </td>
           <td>(</td>
           <td class="paramtype">string&#160;</td>
           <td class="paramname"><em>correlationId</em>, </td>
@@ -512,8 +523,8 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">ConnectionParams&#160;</td>
-          <td class="paramname"><em>connection</em>, </td>
+          <td class="paramtype">List&lt; ConnectionParams &gt;&#160;</td>
+          <td class="paramname"><em>connections</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -533,7 +544,7 @@ CancellationTokenSource&#160;</td><td class="memItemRight" valign="bottom"><b>_c
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">correlationId</td><td>(optional) transaction id to trace execution through call chain.</td></tr>
-    <tr><td class="paramname">connection</td><td>connection parameters</td></tr>
+    <tr><td class="paramname">connections</td><td>connection parameters</td></tr>
     <tr><td class="paramname">credential</td><td>credential parameters</td></tr>
   </table>
   </dd>
