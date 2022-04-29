@@ -5,6 +5,7 @@ using Xunit;
 
 namespace PipServices3.RabbitMQ.Queues
 {
+    [Collection("Sequential")]
     public class RabbitMQMessageQueueTest: IDisposable
     {
         private bool _enabled;

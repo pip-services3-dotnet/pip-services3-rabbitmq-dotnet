@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+FROM mcr.microsoft.com/dotnet/sdk:5.0
 
 # set working directory
 WORKDIR /app
@@ -13,4 +13,4 @@ RUN dotnet restore test/test.csproj
 COPY . .
 
 # Test
-CMD [ "dotnet", "test", "test/test.csproj" ]
+CMD [ "sh","-c","sleep 20 && dotnet test test/test.csproj" ]

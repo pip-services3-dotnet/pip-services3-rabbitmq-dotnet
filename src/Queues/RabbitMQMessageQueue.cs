@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,8 +22,10 @@ namespace PipServices3.RabbitMQ.Queues
     /// 
     /// ### Configuration parameters ###
     /// 
-    /// - topic:                         name of MQTT topic to subscribe
-    /// 
+    /// - queue:                        name of RabbitMQ queue to subscribe
+    /// - intervatl:                    wait for check message interval
+    /// - exchange:                     RabbitMQ exchange name
+    ///
     /// connection(s):
     /// - discovery_key:               (optional) a key to retrieve the connection from <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_connect_1_1_i_discovery.html">IDiscovery</a>
     /// - host:                        host name or IP address
@@ -34,6 +37,15 @@ namespace PipServices3.RabbitMQ.Queues
     /// - username:                    user name
     /// - password:                    user password
     /// 
+    /// options(s):
+    /// - exchange_type:                (optional) RabbitMQ exchange type (default: fanout)
+    /// - routing_key:                  (optional) RabbitMQ routing key
+    /// - persistent:                   (optional) is persistent messages (default: false)
+    /// - exclusive:                    (optional) is exclusive queue (default: false)
+    /// - auto_create:                  (optional) autocreation queue (default: false)
+    /// - auto_delete:                  (optional) The queue is automatically deleted when the last consumer unsubscribes (default: false)
+    /// - no_queue:                     (optional) autogenerate queue name (default: false)
+    ///
     /// ### References ###
     /// 
     /// - *:logger:*:*:1.0             (optional) <a href="https://pip-services3-dotnet.github.io/pip-services3-components-dotnet/interface_pip_services_1_1_components_1_1_log_1_1_i_logger.html">ILogger</a> components to pass log messages
@@ -45,7 +57,7 @@ namespace PipServices3.RabbitMQ.Queues
     /// <code>
     /// var queue = new RabbitMQMessageQueue("myqueue");
     /// queue.configure(ConfigParams.FromTuples(
-    /// "topic", "mytopic",
+    /// "queue", "mytopic",
     /// "connection.protocol", "mqtt"
     /// "connection.host", "localhost"
     /// "connection.port", 1883 ));
@@ -141,10 +153,16 @@ namespace PipServices3.RabbitMQ.Queues
         /// Opens the component with given connection and credential parameters.
         /// </summary>
         /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
-        /// <param name="connection">connection parameters</param>
+        /// <param name="connections">connection parameters</param>
         /// <param name="credential">credential parameters</param>
-        public async override Task OpenAsync(string correlationId, ConnectionParams connection, CredentialParams credential)
+        public override async Task OpenAsync(string correlationId, List<ConnectionParams> connections, CredentialParams credential)
         {
+            var connection = connections?.FirstOrDefault();
+            if (connection == null)
+            {
+                throw new ArgumentNullException(nameof(connections));
+            }
+
             var connectionFactory = new ConnectionFactory();
 
             if (!string.IsNullOrEmpty(connection.Uri))
@@ -269,17 +287,11 @@ namespace PipServices3.RabbitMQ.Queues
             await Task.Delay(0);
         }
 
-        public override long? MessageCount
+        public override async Task<long> ReadMessageCountAsync()
         {
-            get
-            {
                 CheckOpened(null);
 
-                if (string.IsNullOrEmpty(_queue))
-                    return 0;
-
-                return _model.MessageCount(_queue);
-            }
+                return string.IsNullOrEmpty(_queue) ? 0 : _model.MessageCount(_queue);
         }
 
         private MessageEnvelope ToMessage(BasicGetResult envelope)
@@ -291,7 +303,7 @@ namespace PipServices3.RabbitMQ.Queues
                 MessageId = envelope.BasicProperties.MessageId,
                 MessageType = envelope.BasicProperties.Type,
                 CorrelationId = envelope.BasicProperties.CorrelationId,
-                Message = Encoding.UTF8.GetString(envelope.Body.Span.ToArray()),
+                Message = envelope.Body.Span.ToArray(),
                 SentTime = DateTime.UtcNow,
                 Reference = envelope
             };
@@ -318,7 +330,7 @@ namespace PipServices3.RabbitMQ.Queues
             if (!string.IsNullOrEmpty(message.MessageType))
                 properties.Type = message.MessageType;
 
-            var messageBuffer = Encoding.UTF8.GetBytes(message.Message);
+            var messageBuffer = message.Message;
 
             _model.BasicPublish(_exchange, _routingKey, properties, messageBuffer);
 
@@ -500,9 +512,9 @@ namespace PipServices3.RabbitMQ.Queues
         /// Listens for incoming messages and blocks the current thread until queue is closed.
         /// </summary>
         /// <param name="correlationId">(optional) transaction id to trace execution through call chain.</param>
-        /// <param name="callback"></param>
+        /// <param name="receiver"></param>
         /// <returns></returns>
-        public override async Task ListenAsync(string correlationId, Func<MessageEnvelope, IMessageQueue, Task> callback)
+        public override async Task ListenAsync(string correlationId, IMessageReceiver receiver)
         {
             CheckOpened(correlationId);
             _logger.Debug(correlationId, "Started listening messages at {0}", this);
@@ -523,7 +535,7 @@ namespace PipServices3.RabbitMQ.Queues
 
                     try
                     {
-                        await callback(message, this);
+                        await receiver.ReceiveMessageAsync(message, this);
                     }
                     catch (Exception ex)
                     {
