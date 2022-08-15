@@ -1,6 +1,14 @@
 {
     "name": "pip-services3-rabbitmq-dotnet",
-    "registry": "pipdevs",
+    "type": "module",
+    "language": "dotnet",
     "version": "3.4.0",
-    "build": 0
+    "build": 0,
+    "registry": "pipdevs",
+    "artifacts": [
+        {
+            "name":  "<name>",
+            "type": "nuget"
+        }
+    ]
 }
